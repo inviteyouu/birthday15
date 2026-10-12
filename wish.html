@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Birthday Sali Sahiba! ✨🎂</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Tone.js for Web Audio Synthesis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Sacramento&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            display: ['Fredoka', 'sans-serif'],
+            cursive: ['Sacramento', 'cursive'],
+          },
+          colors: {
+            brand: {
+              pink: '#ec4899',
+              purple: '#8b5cf6',
+              rose: '#f43f5e',
+              amber: '#f59e0b',
+            }
+          },
+          animation: {
+            'float-slow': 'float 6s ease-in-out infinite',
+            'float-fast': 'float 3s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+            'wiggle': 'wiggle 0.8s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: 0.6, transform: 'scale(1)' },
+              '50%': { opacity: 1, transform: 'scale(1.06)' },
+            },
+            wiggle: {
+              '0%, 100%': { transform: 'rotate(-4deg)' },
+              '50%': { transform: 'rotate(4deg)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-thumb { background: #ec4899; border-radius: 9999px; }
+
+    /* Glassmorphism Styles */
+    .glass-panel {
+      background: rgba(17, 24, 39, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.5), 0 0 20px -5px rgba(236, 72, 153, 0.15);
+    }
+    
+    .glass-input {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    /* Candle Flame Animation */
+    @keyframes flicker {
+      0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.95; filter: drop-shadow(0 0 8px #f59e0b); }
+      25% { transform: scale(1.08, 0.92) rotate(2deg); opacity: 1; filter: drop-shadow(0 0 14px #fbbf24); }
+      50% { transform: scale(0.95, 1.05) rotate(-2deg); opacity: 0.85; filter: drop-shadow(0 0 6px #f97316); }
+      75% { transform: scale(1.03, 0.97) rotate(1deg); opacity: 1; filter: drop-shadow(0 0 12px #fbbf24); }
+    }
+    .flame-active {
+      animation: flicker 0.65s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+    .flame-extinguished {
+      opacity: 0 !important;
+      transform: scale(0.1) translateY(-10px) !important;
+      transition: all 0.4s ease-out;
+    }
+
+    /* PIN Shake Animation */
+    .shake-error {
+      animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-3px, 0, 0); }
+      20%, 80% { transform: translate3d(5px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+      40%, 60% { transform: translate3d(6px, 0, 0); }
+    }
+
+    /* Balloon Pop Zoom Shockwave Animation */
+    @keyframes popBurstZoom {
+      0% { transform: scale(1); opacity: 1; filter: brightness(1); }
+      45% { transform: scale(1.55); opacity: 0.95; filter: brightness(1.8) drop-shadow(0 0 24px #f43f5e); }
+      100% { transform: scale(1.95); opacity: 0; filter: blur(6px); }
+    }
+    .balloon-bursting {
+      animation: popBurstZoom 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+      pointer-events: none !important;
+    }
+
+    /* Gentle floating for stationary arena balloons */
+    @keyframes gentleBobbing {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-16px) rotate(3deg); }
+    }
+    .balloon-bob {
+      animation: gentleBobbing 3.2s ease-in-out infinite alternate;
+    }
+
+    /* Piano key glowing highlight during demo */
+    .piano-active-highlight {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6) !important;
+      border-color: #fbcfe8 !important;
+      box-shadow: 0 0 24px rgba(236, 72, 153, 0.9) !important;
+      transform: scale(0.97) translateX(4px) !important;
+      color: #ffffff !important;
+    }
+
+    .star-twinkle {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100 min-h-screen overflow-x-hidden selection:bg-pink-500 selection:text-white">
+
+  <!-- Background decorative glowing orbs -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse-glow"></div>
+    <div class="absolute top-1/3 -right-32 w-80 h-80 bg-pink-600/20 rounded-full blur-3xl animate-pulse-glow" style="animation-delay: 1s;"></div>
+    <div class="absolute -bottom-20 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse-glow" style="animation-delay: 2s;"></div>
+    <div id="starsContainer" class="absolute inset-0"></div>
+  </div>
+
+  <!-- 1. FULL-SCREEN PASSCODE LOCK GATE -->
+  <div id="passcodeGate" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/95 backdrop-blur-2xl transition-all duration-700">
+    <div id="passcodeCard" class="glass-panel w-full max-w-sm rounded-3xl p-6 md:p-8 flex flex-col items-center border border-pink-500/30 text-center relative shadow-2xl">
+      
+      <!-- Top Lock Badge -->
+      <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-pink-500 via-rose-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-pink-500/40 mb-3 animate-wiggle">
+        <i class="fa-solid fa-lock-open text-2xl text-white"></i>
+      </div>
+
+      <h2 class="text-2xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-300 to-purple-400 mb-1">
+        Nutan's VIP Gate
+      </h2>
+      <p class="text-xs text-slate-400 mb-5">Enter Passcode: <span class="text-pink-300 font-mono font-bold tracking-wider">Guess your password</span></p>
+
+      <!-- PIN Display Dots -->
+      <div id="pinDots" class="flex justify-center items-center gap-4 mb-4">
+        <div class="pin-dot w-4 h-4 rounded-full border-2 border-pink-400 bg-slate-900 transition-all duration-200"></div>
+        <div class="pin-dot w-4 h-4 rounded-full border-2 border-pink-400 bg-slate-900 transition-all duration-200"></div>
+        <div class="pin-dot w-4 h-4 rounded-full border-2 border-pink-400 bg-slate-900 transition-all duration-200"></div>
+        <div class="pin-dot w-4 h-4 rounded-full border-2 border-pink-400 bg-slate-900 transition-all duration-200"></div>
+      </div>
+
+      <!-- Feedback Status Note -->
+      <div id="pinStatus" class="h-5 text-xs font-medium text-pink-400 mb-3 flex items-center justify-center">
+        Type on keypad or physical keyboard ✨
+      </div>
+
+      <!-- Interactive Keypad with direct inline bindings -->
+      <div class="grid grid-cols-3 gap-2.5 w-full mb-3">
+        <button type="button" onclick="pressPin('1')" class="py-3 rounded-2xl glass-input text-lg font-bold text-white hover:bg-pink-500/25 active:scale-95 active:bg-pink-600 transition">1</button>
+        <button type="button" onclick="pressPin('2')" class="py-3 rounded-2xl glass-input text-lg font-bold text-white hover:bg-pink-500/25 active:scale-95 active:bg-pink-600 transition">2</button>
+        <button type="button" onclick="pressPin('3')" class="py-3 rounded-2xl glass-input text-lg font-bold text-white hover:bg-pink-500/25 active:scale-95 active:bg-pink-600 transition">3</button>
+        <button type="button" onclick="pressPin('4')" class="py-3 rounded-2xl glass-input text-lg font-bold text-white hover:bg-pink-500/25 active:scale-95 active:bg-pink-600 transition">4</button>
+        <button type="button" onclick="pressPin('5')" class="py-3 rounded-2xl glass-input text-lg font-bold text-white hover:bg-pink-500/25 active:scale-95 active:bg-pink-600 transition">5</button>
+        <button type="button" onclick="pressPin('6')" class="py-3 rounded-2xl glass-input text-lg font-bold text-white hover:bg-pink-500/25 active:scale-95 active:bg-pink-600 transition">6</button>
+        <button type="button" onclick="pressPin('7')" class="py-3 rounded-2xl glass-input text-lg font-bold text-white hover:bg-pink-500/25 active:scale-95 active:bg-pink-600 transition">7</button>
+        <button type="button" onclick="pressPin('8')" class="py-3 rounded-2xl glass-input text-lg font-bold text-white hover:bg-pink-500/25 active:scale-95 active:bg-pink-600 transition">8</button>
+        <button type="button" onclick="pressPin('9')" class="py-3 rounded-2xl glass-input text-lg font-bold text-white hover:bg-pink-500/25 active:scale-95 active:bg-pink-600 transition">9</button>
+        
+        <button type="button" onclick="clearPin()" class="py-3 rounded-2xl glass-input text-xs font-bold text-rose-400 hover:bg-rose-500/25 active:scale-95 transition">CLR</button>
+        <button type="button" onclick="pressPin('0')" class="py-3 rounded-2xl glass-input text-lg font-bold text-white hover:bg-pink-500/25 active:scale-95 active:bg-pink-600 transition">0</button>
+        <button type="button" onclick="backspacePin()" class="py-3 rounded-2xl glass-input text-base text-amber-400 hover:bg-amber-500/25 active:scale-95 transition"><i class="fa-solid fa-delete-left"></i></button>
+      </div>
+
+      <!-- Quick Emergency Fallback / Direct Unlock Button -->
+      <!-- <button type="button" onclick="unlockAppImmediately()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-semibold text-xs tracking-wider uppercase shadow-lg shadow-pink-500/25 active:scale-95 transition flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-key text-[10px]"></i> Quick Unlock (1510)
+      </button> -->
+    </div>
+  </div>
+
+  <div id="mainAppContent" class="relative z-10 opacity-0 pointer-events-none transition-opacity duration-700 flex flex-col min-h-screen">
+    
+    <!-- Top Sticky Header -->
+    <header class="sticky top-0 z-40 backdrop-blur-lg bg-slate-950/80 border-b border-pink-500/20 px-4 py-3">
+      <div class="max-w-6xl mx-auto flex items-center justify-between">
+        
+        <div class="flex items-center gap-2">
+          <span class="text-2xl animate-spin" style="animation-duration: 8s;">✨</span>
+          <span class="font-display font-bold text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-indigo-300">
+            Sali Sahiba's Celebration
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button id="musicToggleBtn" onclick="toggleAudioTrack()" class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-500/15 border border-pink-500/40 text-pink-300 hover:bg-pink-500/25 transition active:scale-95 text-xs font-semibold shadow-sm shadow-pink-500/20">
+            <i id="musicIcon" class="fa-solid fa-music"></i>
+            <span id="musicText" class="hidden sm:inline">Play Melody</span>
+            <span id="eqBars" class="hidden flex items-end gap-0.5 h-3">
+              <span class="w-0.5 bg-pink-400 h-2 animate-pulse"></span>
+              <span class="w-0.5 bg-pink-400 h-3 animate-pulse" style="animation-delay: 0.15s"></span>
+              <span class="w-0.5 bg-pink-400 h-1.5 animate-pulse" style="animation-delay: 0.3s"></span>
+            </span>
+          </button>
+
+          <button id="confettiBlastBtn" onclick="triggerGrandConfetti()" class="px-3.5 py-1.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white transition text-xs font-semibold shadow-lg shadow-indigo-600/30 active:scale-95 flex items-center gap-1.5">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span class="hidden sm:inline">Confetti!</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8 space-y-12">
+      
+      <!-- HERO BANNER SECTION -->
+      <section class="text-center relative pt-4 pb-6">
+        <div class="absolute -top-2 left-6 text-3xl animate-float-slow select-none pointer-events-none">🥟</div>
+        <div class="absolute -top-4 right-10 text-3xl animate-float-fast select-none pointer-events-none">☕</div>
+        <div class="absolute bottom-0 right-4 text-3xl animate-float-slow select-none pointer-events-none" style="animation-delay: 1.5s;">🍰</div>
+        <div class="absolute bottom-2 left-8 text-3xl animate-float-fast select-none pointer-events-none" style="animation-delay: 2s;">💖</div>
+
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-400 text-xs font-semibold uppercase tracking-wider mb-4 animate-pulse">
+          <i class="fa-solid fa-crown text-amber-400"></i> Royal Birthday Edition
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight text-white mb-4 leading-tight">
+          Happy Birthday dear <br class="hidden sm:inline"/>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-300 to-purple-400 underline decoration-pink-500/30">
+            Sali Sahiba! 🎂✨
+          </span>
+        </h1>
+
+        <div class="max-w-2xl mx-auto glass-panel p-4 md:p-5 rounded-3xl border border-pink-500/30 shadow-xl">
+          <p class="font-sans text-lg md:text-2xl text-pink-200 font-semibold mb-2">
+            "Ek samosa 2 chai 🥟☕☕ meri sali cutie pie! 🍰💖🎉"
+          </p>
+          <p class="text-xs md:text-sm text-slate-400 italic">
+            Official Royal proclamation: You are entitled to unlimited treats, tea, and joy!
+          </p>
+        </div>
+      </section>
+
+      <!-- 2. BLOW THE CANDLES CAKE SECTION -->
+      <section class="glass-panel rounded-3xl p-6 md:p-8 relative overflow-hidden">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-8 h-8 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold">1</span>
+              <h2 class="text-xl md:text-2xl font-bold font-display text-white">Make a Wish & Blow the Candles 🎂</h2>
+            </div>
+            <p class="text-xs md:text-sm text-slate-400">
+              Tap each flame or activate mic to blow them out with your breath!
+            </p>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button id="micBlowBtn" onclick="toggleMicrophoneBlow()" class="px-4 py-2 rounded-xl bg-pink-600/30 border border-pink-500/50 hover:bg-pink-600/50 text-pink-200 text-xs font-semibold flex items-center gap-2 transition active:scale-95 shadow-md">
+              <i id="micIcon" class="fa-solid fa-microphone"></i>
+              <span id="micText">Enable Mic Blow</span>
+            </button>
+            <button onclick="relightCandles()" class="px-3 py-2 rounded-xl glass-input text-slate-300 text-xs hover:text-white hover:bg-white/10 transition">
+              <i class="fa-solid fa-fire text-amber-400 mr-1"></i> Relight
+            </button>
+          </div>
+        </div>
+
+        <div id="micMeterWrapper" class="hidden max-w-md mx-auto mb-6 bg-slate-900/80 rounded-full p-1 border border-pink-500/30">
+          <div class="flex items-center gap-2 px-3 py-1">
+            <span class="text-[10px] text-pink-300 font-mono">Blowing Volume:</span>
+            <div class="flex-grow bg-slate-800 h-2 rounded-full overflow-hidden">
+              <div id="micMeterBar" class="bg-gradient-to-r from-pink-500 to-amber-400 h-full w-0 transition-all duration-75 rounded-full"></div>
+            </div>
+            <span id="micValText" class="text-[10px] font-mono text-slate-400">0%</span>
+          </div>
+        </div>
+
+        <!-- Interactive SVG & CSS Cake Arena -->
+        <div class="relative w-full max-w-md mx-auto h-64 flex flex-col items-center justify-end select-none">
+          <!-- Candles Layer (5 candles) -->
+          <div class="flex justify-center items-end gap-6 sm:gap-8 z-20 mb-[-6px]">
+            <!-- Candle 1 -->
+            <div class="candle-wrapper flex flex-col items-center cursor-pointer group" onclick="extinguishCandle(0)">
+              <div class="flame flame-active w-4 h-6 rounded-full bg-gradient-to-t from-amber-500 via-yellow-300 to-white shadow-lg mb-0.5 transition-all"></div>
+              <div class="w-1.5 h-3 bg-slate-400 rounded-t"></div>
+              <div class="w-4 h-14 bg-gradient-to-b from-rose-400 to-pink-500 rounded-sm border-t border-rose-200 shadow-md"></div>
+            </div>
+
+            <!-- Candle 2 -->
+            <div class="candle-wrapper flex flex-col items-center cursor-pointer group" onclick="extinguishCandle(1)">
+              <div class="flame flame-active w-4 h-6 rounded-full bg-gradient-to-t from-amber-500 via-yellow-300 to-white shadow-lg mb-0.5 transition-all"></div>
+              <div class="w-1.5 h-3 bg-slate-400 rounded-t"></div>
+              <div class="w-4 h-16 bg-gradient-to-b from-purple-400 to-indigo-500 rounded-sm border-t border-purple-200 shadow-md"></div>
+            </div>
+
+            <!-- Candle 3 -->
+            <div class="candle-wrapper flex flex-col items-center cursor-pointer group" onclick="extinguishCandle(2)">
+              <div class="flame flame-active w-4 h-6 rounded-full bg-gradient-to-t from-amber-500 via-yellow-300 to-white shadow-lg mb-0.5 transition-all"></div>
+              <div class="w-1.5 h-3 bg-slate-400 rounded-t"></div>
+              <div class="w-4 h-18 bg-gradient-to-b from-amber-300 to-yellow-500 rounded-sm border-t border-yellow-100 shadow-md"></div>
+            </div>
+
+            <!-- Candle 4 -->
+            <div class="candle-wrapper flex flex-col items-center cursor-pointer group" onclick="extinguishCandle(3)">
+              <div class="flame flame-active w-4 h-6 rounded-full bg-gradient-to-t from-amber-500 via-yellow-300 to-white shadow-lg mb-0.5 transition-all"></div>
+              <div class="w-1.5 h-3 bg-slate-400 rounded-t"></div>
+              <div class="w-4 h-16 bg-gradient-to-b from-teal-400 to-emerald-500 rounded-sm border-t border-teal-200 shadow-md"></div>
+            </div>
+
+            <!-- Candle 5 -->
+            <div class="candle-wrapper flex flex-col items-center cursor-pointer group" onclick="extinguishCandle(4)">
+              <div class="flame flame-active w-4 h-6 rounded-full bg-gradient-to-t from-amber-500 via-yellow-300 to-white shadow-lg mb-0.5 transition-all"></div>
+              <div class="w-1.5 h-3 bg-slate-400 rounded-t"></div>
+              <div class="w-4 h-14 bg-gradient-to-b from-pink-400 to-rose-500 rounded-sm border-t border-pink-200 shadow-md"></div>
+            </div>
+          </div>
+
+          <!-- Cake Layers -->
+          <div class="w-56 h-14 bg-gradient-to-r from-pink-300 via-rose-200 to-pink-300 rounded-t-2xl border-t-4 border-pink-100 shadow-inner relative z-10 flex items-center justify-around px-4">
+            <span class="w-3 h-3 rounded-full bg-rose-500 shadow-sm"></span>
+            <span class="w-3 h-3 rounded-full bg-purple-500 shadow-sm"></span>
+            <span class="w-3 h-3 rounded-full bg-amber-400 shadow-sm"></span>
+            <span class="w-3 h-3 rounded-full bg-rose-500 shadow-sm"></span>
+            <span class="w-3 h-3 rounded-full bg-indigo-500 shadow-sm"></span>
+          </div>
+
+          <div class="w-64 h-6 bg-pink-500 rounded-full -mt-2 z-10 shadow-md border-b-2 border-pink-600"></div>
+
+          <div class="w-72 h-20 bg-gradient-to-r from-indigo-900 via-purple-900 to-indigo-900 rounded-t-xl border-t-2 border-purple-400/40 shadow-2xl relative z-0 flex items-center justify-center">
+            <span class="text-sm tracking-widest uppercase font-bold text-pink-300/90">✨ QUEEN OF HEARTS ✨</span>
+          </div>
+
+          <div class="w-80 h-4 bg-slate-700 rounded-full shadow-2xl border-t border-slate-500"></div>
+          <div class="w-44 h-4 bg-slate-800 rounded-b-md shadow-lg"></div>
+        </div>
+
+        <div id="cakeWishAlert" class="mt-4 text-center text-sm font-semibold text-emerald-400 hidden animate-bounce">
+          🎉 ALL CANDLES EXTINGUISHED! May all your biggest dreams come true! 💖✨
+        </div>
+      </section>
+
+      <!-- 3. MOBILE-OPTIMIZED VERTICAL PIANO -->
+      <section class="glass-panel rounded-3xl p-6 md:p-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">2</span>
+              <h2 class="text-xl md:text-2xl font-bold font-display text-white">Vertical Birthday Piano 🎹</h2>
+            </div>
+            <p class="text-xs md:text-sm text-slate-400">
+              Touch-friendly piano synthesizer. Tap keys or listen to the full extended demo!
+            </p>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <button id="playMelodyAutoBtn" onclick="toggleExtendedAutoDemo()" class="px-4 py-2 rounded-xl bg-purple-600/30 border border-purple-500/50 hover:bg-purple-600/50 text-purple-200 text-xs font-semibold flex items-center gap-2 transition active:scale-95 shadow">
+              <i id="demoPlayIcon" class="fa-solid fa-play"></i>
+              <span id="demoPlayText">Play Full Birthday Demo</span>
+            </button>
+            <button id="stopMelodyAutoBtn" onclick="stopAutoDemo()" class="hidden px-3 py-2 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-semibold hover:bg-rose-500/30 transition">
+              <i class="fa-solid fa-stop mr-1"></i> Stop
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-2 mb-6">
+          <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-300 bg-slate-900/60 p-3 rounded-2xl border border-white/5">
+            <span class="text-purple-400 font-semibold mr-1"><i class="fa-solid fa-music"></i> Song Sheet:</span>
+            <span class="bg-slate-800 px-2 py-0.5 rounded text-pink-300 font-mono">C4 C4 D4 C4 F4 E4</span>
+            <span class="text-slate-600">|</span>
+            <span class="bg-slate-800 px-2 py-0.5 rounded text-pink-300 font-mono">C4 C4 D4 C4 G4 F4</span>
+            <span class="text-slate-600">|</span>
+            <span class="bg-slate-800 px-2 py-0.5 rounded text-pink-300 font-mono">C4 C4 C5 A4 F4 E4 D4</span>
+            <span class="text-slate-600">|</span>
+            <span class="bg-slate-800 px-2 py-0.5 rounded text-amber-300 font-mono">A#4 A#4 A4 F4 G4 F4</span>
+          </div>
+
+          <div id="demoProgressCard" class="hidden glass-input p-2.5 rounded-xl flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2 text-purple-300">
+              <i class="fa-solid fa-circle-play animate-spin text-pink-400"></i>
+              <span id="demoLyricText" class="font-medium">Playing: "Happy Birthday to you..."</span>
+            </div>
+            <div class="w-24 bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div id="demoProgressBar" class="h-full bg-gradient-to-r from-pink-500 to-purple-400 w-0 transition-all duration-300"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+          <!-- Natural Keys -->
+          <div class="flex flex-col gap-2 w-full">
+            <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1 flex justify-between">
+              <span>Natural Keys (C4 - C5)</span>
+              <span>Sa-Re-Ga</span>
+            </div>
+
+            <button type="button" onclick="handlePianoKeyPress('C4', this)" class="piano-key w-full py-4 px-5 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-pink-500 flex items-center justify-between text-left transition-all active:bg-pink-600 active:scale-[0.98] shadow-md group" data-note="C4">
+              <span class="font-bold text-base text-white group-hover:text-pink-400">C4 (Sa)</span>
+              <span class="text-xs text-slate-400 font-mono">261.6 Hz</span>
+            </button>
+            <button type="button" onclick="handlePianoKeyPress('D4', this)" class="piano-key w-full py-4 px-5 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-pink-500 flex items-center justify-between text-left transition-all active:bg-pink-600 active:scale-[0.98] shadow-md group" data-note="D4">
+              <span class="font-bold text-base text-white group-hover:text-pink-400">D4 (Re)</span>
+              <span class="text-xs text-slate-400 font-mono">293.7 Hz</span>
+            </button>
+            <button type="button" onclick="handlePianoKeyPress('E4', this)" class="piano-key w-full py-4 px-5 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-pink-500 flex items-center justify-between text-left transition-all active:bg-pink-600 active:scale-[0.98] shadow-md group" data-note="E4">
+              <span class="font-bold text-base text-white group-hover:text-pink-400">E4 (Ga)</span>
+              <span class="text-xs text-slate-400 font-mono">329.6 Hz</span>
+            </button>
+            <button type="button" onclick="handlePianoKeyPress('F4', this)" class="piano-key w-full py-4 px-5 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-pink-500 flex items-center justify-between text-left transition-all active:bg-pink-600 active:scale-[0.98] shadow-md group" data-note="F4">
+              <span class="font-bold text-base text-white group-hover:text-pink-400">F4 (Ma)</span>
+              <span class="text-xs text-slate-400 font-mono">349.2 Hz</span>
+            </button>
+            <button type="button" onclick="handlePianoKeyPress('G4', this)" class="piano-key w-full py-4 px-5 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-pink-500 flex items-center justify-between text-left transition-all active:bg-pink-600 active:scale-[0.98] shadow-md group" data-note="G4">
+              <span class="font-bold text-base text-white group-hover:text-pink-400">G4 (Pa)</span>
+              <span class="text-xs text-slate-400 font-mono">392.0 Hz</span>
+            </button>
+            <button type="button" onclick="handlePianoKeyPress('A4', this)" class="piano-key w-full py-4 px-5 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-pink-500 flex items-center justify-between text-left transition-all active:bg-pink-600 active:scale-[0.98] shadow-md group" data-note="A4">
+              <span class="font-bold text-base text-white group-hover:text-pink-400">A4 (Dha)</span>
+              <span class="text-xs text-slate-400 font-mono">440.0 Hz</span>
+            </button>
+            <button type="button" onclick="handlePianoKeyPress('B4', this)" class="piano-key w-full py-4 px-5 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-pink-500 flex items-center justify-between text-left transition-all active:bg-pink-600 active:scale-[0.98] shadow-md group" data-note="B4">
+              <span class="font-bold text-base text-white group-hover:text-pink-400">B4 (Ni)</span>
+              <span class="text-xs text-slate-400 font-mono">493.9 Hz</span>
+            </button>
+            <button type="button" onclick="handlePianoKeyPress('C5', this)" class="piano-key w-full py-4 px-5 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-pink-500 flex items-center justify-between text-left transition-all active:bg-pink-600 active:scale-[0.98] shadow-md group" data-note="C5">
+              <span class="font-bold text-base text-white group-hover:text-pink-400">C5 (High Sa)</span>
+              <span class="text-xs text-slate-400 font-mono">523.3 Hz</span>
+            </button>
+          </div>
+
+          <!-- Sharps -->
+          <div class="flex flex-col gap-2 w-full">
+            <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1 flex justify-between">
+              <span>Accidentals (Sharps)</span>
+              <span>Smooth Tone</span>
+            </div>
+
+            <button type="button" onclick="handlePianoKeyPress('C#4', this)" class="piano-key w-full py-4 px-5 rounded-2xl bg-gradient-to-r from-purple-950 to-slate-900 border border-purple-700/60 hover:border-purple-400 flex items-center justify-between text-left transition-all active:bg-purple-600 active:scale-[0.98] shadow-md group" data-note="C#4">
+              <span class="font-bold text-base text-purple-300">C#4 / Db4</span>
+              <span class="text-xs text-purple-400 font-mono">277.2 Hz</span>
+            </button>
+            <button type="button" onclick="handlePianoKeyPress('D#4', this)" class="piano-key w-full py-4 px-5 rounded-2xl bg-gradient-to-r from-purple-950 to-slate-900 border border-purple-700/60 hover:border-purple-400 flex items-center justify-between text-left transition-all active:bg-purple-600 active:scale-[0.98] shadow-md group" data-note="D#4">
+              <span class="font-bold text-base text-purple-300">D#4 / Eb4</span>
+              <span class="text-xs text-purple-400 font-mono">311.1 Hz</span>
+            </button>
+            <button type="button" onclick="handlePianoKeyPress('F#4', this)" class="piano-key w-full py-4 px-5 rounded-2xl bg-gradient-to-r from-purple-950 to-slate-900 border border-purple-700/60 hover:border-purple-400 flex items-center justify-between text-left transition-all active:bg-purple-600 active:scale-[0.98] shadow-md group" data-note="F#4">
+              <span class="font-bold text-base text-purple-300">F#4 / Gb4</span>
+              <span class="text-xs text-purple-400 font-mono">370.0 Hz</span>
+            </button>
+            <button type="button" onclick="handlePianoKeyPress('G#4', this)" class="piano-key w-full py-4 px-5 rounded-2xl bg-gradient-to-r from-purple-950 to-slate-900 border border-purple-700/60 hover:border-purple-400 flex items-center justify-between text-left transition-all active:bg-purple-600 active:scale-[0.98] shadow-md group" data-note="G#4">
+              <span class="font-bold text-base text-purple-300">G#4 / Ab4</span>
+              <span class="text-xs text-purple-400 font-mono">415.3 Hz</span>
+            </button>
+            <button type="button" onclick="handlePianoKeyPress('A#4', this)" class="piano-key w-full py-4 px-5 rounded-2xl bg-gradient-to-r from-purple-950 to-slate-900 border border-purple-700/60 hover:border-purple-400 flex items-center justify-between text-left transition-all active:bg-purple-600 active:scale-[0.98] shadow-md group" data-note="A#4">
+              <span class="font-bold text-base text-purple-300">A#4 / Bb4</span>
+              <span class="text-xs text-purple-400 font-mono">466.2 Hz</span>
+            </button>
+
+            <div class="h-32 rounded-2xl bg-purple-950/30 border border-purple-500/20 p-4 flex flex-col justify-between items-center text-center mt-2">
+              <div class="text-xs text-purple-300 font-medium">Synthesized Melodic Engine</div>
+              <div class="flex items-center gap-1.5 h-12">
+                <div class="w-1.5 bg-pink-500 rounded-full h-4 animate-bounce" style="animation-delay: 0.1s"></div>
+                <div class="w-1.5 bg-purple-400 rounded-full h-8 animate-bounce" style="animation-delay: 0.2s"></div>
+                <div class="w-1.5 bg-indigo-400 rounded-full h-10 animate-bounce" style="animation-delay: 0.3s"></div>
+                <div class="w-1.5 bg-rose-400 rounded-full h-6 animate-bounce" style="animation-delay: 0.15s"></div>
+                <div class="w-1.5 bg-amber-400 rounded-full h-9 animate-bounce" style="animation-delay: 0.25s"></div>
+              </div>
+              <div class="text-[11px] text-slate-400">Tone.js PolySynth Ready</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. BALLOON POP ARENA -->
+      <section class="glass-panel rounded-3xl p-6 md:p-8">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold">3</span>
+              <h2 class="text-xl md:text-2xl font-bold font-display text-white">Balloon Pop Blast 🎈</h2>
+            </div>
+            <p class="text-xs md:text-sm text-slate-400">
+              Pre-loaded balloons are bobbing! Click or tap any balloon to zoom-pop and build your score.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5">
+            <div class="glass-input px-4 py-1.5 rounded-2xl text-center">
+              <div class="text-[10px] text-slate-400 uppercase tracking-wider">Score</div>
+              <div id="balloonScore" class="text-xl font-bold font-mono text-pink-400">0</div>
+            </div>
+            <button onclick="addMoreBalloons()" class="px-3.5 py-2 rounded-xl bg-pink-600/30 border border-pink-500/50 hover:bg-pink-600/50 text-pink-200 text-xs font-semibold transition active:scale-95 shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-plus"></i> Add More
+            </button>
+            <button onclick="blastAllBalloons()" class="px-3.5 py-2 rounded-xl bg-rose-600/30 border border-rose-500/50 hover:bg-rose-600/50 text-rose-200 text-xs font-semibold transition active:scale-95 shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-burst"></i> Blast All!
+            </button>
+          </div>
+        </div>
+
+        <div id="balloonArena" class="relative w-full h-80 sm:h-96 bg-gradient-to-b from-slate-900/80 via-slate-900/50 to-slate-950/90 rounded-3xl border border-pink-500/20 overflow-hidden flex items-center justify-center select-none shadow-inner">
+          <div class="absolute inset-0 pointer-events-none opacity-40">
+            <div class="absolute top-4 left-8 text-2xl">☁️</div>
+            <div class="absolute top-12 right-12 text-3xl">☁️</div>
+            <div class="absolute bottom-6 left-1/3 text-xl">✨</div>
+          </div>
+          <div id="arenaHint" class="absolute top-4 bg-pink-500/20 border border-pink-500/40 text-pink-200 text-xs px-4 py-1.5 rounded-full pointer-events-none backdrop-blur-md animate-pulse z-30">
+            <i class="fa-solid fa-hand-pointer mr-1"></i> Tap any balloon to start popping!
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. SCRATCH & REVEAL VOUCHER CARD -->
+      <section class="glass-panel rounded-3xl p-6 md:p-8">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">4</span>
+          <h2 class="text-xl md:text-2xl font-bold font-display text-white">Scratch & Reveal Surprise Coupon 🎟️</h2>
+        </div>
+        <p class="text-xs md:text-sm text-slate-400 mb-6">
+          Rub your finger or mouse over the silver coating to unveil your birthday treat pass!
+        </p>
+
+        <div class="max-w-md mx-auto relative rounded-3xl overflow-hidden shadow-2xl border-2 border-amber-400/30">
+          <div id="scratchPrizeCard" class="w-full h-64 p-6 bg-gradient-to-br from-amber-500 via-rose-600 to-purple-800 flex flex-col justify-between text-white text-center select-none">
+            <div class="flex justify-between items-center text-xs font-mono tracking-widest text-amber-200">
+              <span>★ VIP PASS ★</span>
+              <span>NO. 1510-BDAY</span>
+            </div>
+
+            <div class="my-auto py-2">
+              <div class="text-3xl mb-1">🥟☕☕</div>
+              <h3 class="text-xl md:text-2xl font-display font-black tracking-wide text-yellow-300 drop-shadow">
+                UNLIMITED TREAT VOUCHER!
+              </h3>
+              <p class="text-xs md:text-sm font-semibold text-white/95 mt-1">
+                "1 Free Samosa + 2 Cutting Chai Treat guaranteed! Unlimited refills!"
+              </p>
+              <p class="text-[11px] text-amber-200 italic mt-1">
+                Valid for redemption at any café with Jiju anytime this year!
+              </p>
+            </div>
+
+            <div class="text-[10px] uppercase tracking-wider text-amber-200/80 border-t border-white/20 pt-2 flex justify-between">
+              <span>Non-Transferable</span>
+              <span>100% Authentic Love</span>
+            </div>
+          </div>
+
+          <canvas id="scratchCanvas" class="absolute inset-0 w-full h-full z-10 cursor-crosshair touch-none"></canvas>
+        </div>
+
+        <div class="mt-4 max-w-md mx-auto flex items-center justify-between text-xs text-slate-400">
+          <span id="scratchProgress">Scratched: 0%</span>
+          <button onclick="resetScratchCard()" class="text-pink-400 hover:text-pink-300 transition text-xs font-semibold">
+            <i class="fa-solid fa-rotate-right mr-1"></i> Scratch Again
+          </button>
+        </div>
+      </section>
+
+      <!-- 6. SALI TRIVIA QUIZ & FORTUNE WHEEL -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- TRIVIA QUIZ -->
+        <div class="glass-panel rounded-3xl p-6 md:p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-8 h-8 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold">5</span>
+              <h2 class="text-xl font-bold font-display text-white">Sali Sahiba Trivia Quiz 💡</h2>
+            </div>
+            <p class="text-xs text-slate-400 mb-6">Test your birthday status!</p>
+
+            <div id="quizContainer" class="space-y-4">
+              <!-- Q1 -->
+              <div class="quiz-step" data-step="1">
+                <div class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-1">Question 1 of 3</div>
+                <div class="text-base font-semibold text-white mb-3">What is the national motto for today's celebrations?</div>
+                <div class="space-y-2">
+                  <button onclick="answerQuiz(false, this)" class="quiz-opt w-full p-3 rounded-xl glass-input text-left text-sm hover:border-pink-500 transition">A) Eat salad and work overtime</button>
+                  <button onclick="answerQuiz(true, this)" class="quiz-opt w-full p-3 rounded-xl glass-input text-left text-sm hover:border-pink-500 transition">B) Ek samosa 2 chai, meri sali cutie pie! 🥟☕</button>
+                  <button onclick="answerQuiz(false, this)" class="quiz-opt w-full p-3 rounded-xl glass-input text-left text-sm hover:border-pink-500 transition">C) Stay in silence all day</button>
+                </div>
+              </div>
+
+              <!-- Q2 -->
+              <div class="quiz-step hidden" data-step="2">
+                <div class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-1">Question 2 of 3</div>
+                <div class="text-base font-semibold text-white mb-3">Who has 100% official right to throw sweet tantrums today?</div>
+                <div class="space-y-2">
+                  <button onclick="answerQuiz(true, this)" class="quiz-opt w-full p-3 rounded-xl glass-input text-left text-sm hover:border-pink-500 transition">A) Sali Sahiba (Full VIP Immunity) 👑</button>
+                  <button onclick="answerQuiz(false, this)" class="quiz-opt w-full p-3 rounded-xl glass-input text-left text-sm hover:border-pink-500 transition">B) Random passersby</button>
+                  <button onclick="answerQuiz(false, this)" class="quiz-opt w-full p-3 rounded-xl glass-input text-left text-sm hover:border-pink-500 transition">C) Nobody</button>
+                </div>
+              </div>
+
+              <!-- Q3 -->
+              <div class="quiz-step hidden" data-step="3">
+                <div class="text-xs font-semibold text-pink-400 uppercase tracking-wider mb-1">Question 3 of 3</div>
+                <div class="text-base font-semibold text-white mb-3">What happens if you refuse birthday cake today?</div>
+                <div class="space-y-2">
+                  <button onclick="answerQuiz(false, this)" class="quiz-opt w-full p-3 rounded-xl glass-input text-left text-sm hover:border-pink-500 transition">A) A formal email warning</button>
+                  <button onclick="answerQuiz(false, this)" class="quiz-opt w-full p-3 rounded-xl glass-input text-left text-sm hover:border-pink-500 transition">B) 10 squats</button>
+                  <button onclick="answerQuiz(true, this)" class="quiz-opt w-full p-3 rounded-xl glass-input text-left text-sm hover:border-pink-500 transition">C) Forced to sponsor samosas for everyone! 🥟🎉</button>
+                </div>
+              </div>
+
+              <div id="quizResult" class="hidden text-center py-6">
+                <div class="text-4xl mb-2">🏆</div>
+                <h4 class="text-xl font-bold font-display text-white mb-1">Quiz Finished!</h4>
+                <p id="quizScoreText" class="text-pink-400 font-bold text-lg mb-4">You scored 3 / 3!</p>
+                <button onclick="resetQuizGame()" class="px-4 py-2 rounded-xl bg-pink-600 text-white text-xs font-semibold hover:bg-pink-500 transition">Play Again</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORTUNE BIRTHDAY WHEEL -->
+        <div class="glass-panel rounded-3xl p-6 md:p-8 flex flex-col items-center text-center">
+          <div class="w-full text-left mb-4">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">6</span>
+              <h2 class="text-xl font-bold font-display text-white">Birthday Fortune Wheel 🎡</h2>
+            </div>
+            <p class="text-xs text-slate-400">Spin to win your honorary birthday perk!</p>
+          </div>
+
+          <div class="relative my-auto flex items-center justify-center">
+            <div class="absolute -top-3 z-20 text-amber-400 text-2xl filter drop-shadow">
+              <i class="fa-solid fa-caret-down"></i>
+            </div>
+            <canvas id="wheelCanvas" width="260" height="260" class="transition-transform duration-[4000ms] cubic-bezier(0.1, 0.9, 0.2, 1)"></canvas>
+          </div>
+
+          <div class="mt-4 w-full">
+            <button onclick="spinFortuneWheel()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 text-white font-bold text-sm shadow-lg shadow-pink-500/30 hover:opacity-90 active:scale-95 transition">
+              <i class="fa-solid fa-arrows-rotate mr-2"></i> Spin Your Fortune!
+            </button>
+            <div id="wheelResultText" class="h-6 mt-2 text-xs font-semibold text-yellow-300">
+              Ready to spin!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. MYSTERY GIFT & POLAROID MEMORY -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- MYSTERY GIFT -->
+        <div class="glass-panel rounded-3xl p-6 md:p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-8 h-8 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold">7</span>
+              <h2 class="text-xl font-bold font-display text-white">Mystery Gift Unboxing 🎁</h2>
+            </div>
+            <p class="text-xs text-slate-400 mb-6">Click the box to pop open the lid!</p>
+          </div>
+
+          <div class="my-auto py-6 flex flex-col items-center">
+            <div id="giftBox" onclick="toggleGiftBox()" class="relative cursor-pointer group select-none">
+              <div id="giftLid" class="w-36 h-10 bg-gradient-to-r from-pink-500 to-rose-600 rounded-t-xl border-b-2 border-pink-700 shadow-xl relative z-10 mx-auto transition-transform duration-500 flex items-center justify-center group-hover:-translate-y-1">
+                <div class="absolute -top-4 w-8 h-8 rounded-full bg-amber-400 shadow flex items-center justify-center text-xs text-amber-900 font-bold">🎀</div>
+                <div class="w-6 h-full bg-amber-400/80"></div>
+              </div>
+
+              <div id="giftBase" class="w-32 h-28 bg-gradient-to-b from-purple-700 to-indigo-900 rounded-b-2xl shadow-2xl relative mx-auto flex items-center justify-center overflow-hidden border-t-2 border-purple-500/40">
+                <div class="w-6 h-full bg-amber-400/80"></div>
+              </div>
+            </div>
+
+            <div id="giftLetter" class="hidden mt-6 max-w-sm p-4 rounded-2xl bg-gradient-to-r from-amber-200 to-yellow-100 text-slate-900 shadow-xl border border-amber-300 transform transition-all duration-500 scale-90">
+              <div class="flex items-center gap-2 mb-1">
+                <i class="fa-solid fa-heart text-rose-500"></i>
+                <span class="font-bold text-xs uppercase tracking-wider text-rose-700">Special Letter for Sali Sahiba</span>
+              </div>
+              <p class="font-cursive text-2xl text-slate-800 leading-snug">
+                Dear Sali Sahiba, you bring endless joy and laughter to our family. Keep smiling, keep shining, and stay our forever cutie pie! 🍰💖
+              </p>
+              <div class="text-right text-xs font-semibold text-slate-600 mt-2">— With infinite love & blessings ✨</div>
+            </div>
+          </div>
+
+          <div class="text-center text-xs text-slate-400">
+            <i class="fa-solid fa-hand-pointer mr-1"></i> Tap the box to unbox
+          </div>
+        </div>
+        <!-- POLAROID PHOTO MEMORY -->
+        <div class="glass-panel rounded-3xl p-6 md:p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold">8</span>
+              <h2 class="text-xl font-bold font-display text-white">Memory Polaroid Frame 📸</h2>
+            </div>
+            <p class="text-xs text-slate-400 mb-4">A special memory captured in time!</p>
+          </div>
+
+          <div class="max-w-xs mx-auto bg-white p-4 pb-5 rounded-2xl shadow-2xl rotate-1 hover:rotate-0 transition-transform duration-300 text-slate-800 flex flex-col items-center">
+            
+            <!-- Polaroid Frame / Reveal Box -->
+            <div 
+              id="polaroidFrame" 
+              onclick="revealCutiePiePhoto()" 
+              class="w-full h-56 bg-slate-100 rounded-xl overflow-hidden relative border-2 border-slate-200 flex items-center justify-center cursor-pointer group shadow-inner"
+            >
+              <!-- Hidden Cover (Click to Reveal) -->
+              <div id="photoPlaceholder" class="text-center p-4 transition-all duration-300 group-hover:scale-105 flex flex-col items-center justify-center h-full w-full bg-gradient-to-br from-pink-50 via-purple-50 to-pink-100">
+                <div class="w-12 h-12 rounded-full bg-pink-500/20 text-pink-600 flex items-center justify-center text-xl mb-2 animate-bounce">
+                  💖
+                </div>
+                <div class="text-sm font-extrabold text-pink-600 tracking-wide uppercase">
+                  Click to see cutie pie ✨
+                </div>
+                <div class="text-[11px] text-slate-500 mt-1 italic">
+                  Tap to unveil the picture!
+                </div>
+              </div>
+
+              <!-- The Actual Image -->
+              <img 
+                id="polaroidImg" 
+                src="https://lh3.googleusercontent.com/d/13K7qGHnmxyrpwJxknZMI-5MeWa_4gTku" 
+                alt="Cutie Pie" 
+                class="w-full h-full object-cover hidden transition-all duration-500"
+                loading="lazy"
+              />
+            </div>
+
+            <!-- Memory Caption -->
+            <div class="w-full mt-3">
+              <input 
+                type="text" 
+                id="memoryCaption" 
+                placeholder="Write a memory note here..." 
+                value="Best Sali Sahiba Moments! 🍰💖" 
+                class="w-full text-center font-cursive text-sm text-slate-800 border-b border-dashed border-slate-300 focus:outline-none focus:border-pink-500 bg-transparent py-1"
+              >
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="mt-4 flex items-center justify-center gap-3">
+            <button onclick="revealCutiePiePhoto()" class="px-4 py-2 rounded-xl bg-pink-600/30 border border-pink-500/50 hover:bg-pink-600/50 text-pink-200 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 shadow">
+              <i class="fa-solid fa-sparkles"></i> Unveil Photo
+            </button>
+            <button onclick="hideCutiePiePhoto()" class="px-3 py-2 rounded-xl glass-input text-slate-400 hover:text-white text-xs transition">
+              Cover Again
+            </button>
+          </div>
+        </div>
+        <!-- POLAROID PHOTO MEMORY -->
+        <!-- <div class="glass-panel rounded-3xl p-6 md:p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold">8</span>
+              <h2 class="text-xl font-bold font-display text-white">Memory Polaroid Frame 📸</h2>
+            </div>
+            <p class="text-xs text-slate-400 mb-4">Upload a favorite picture & save with your personal note!</p>
+          </div>
+
+          <div class="max-w-xs mx-auto bg-white p-4 pb-5 rounded-2xl shadow-2xl rotate-1 hover:rotate-0 transition-transform duration-300 text-slate-800 flex flex-col items-center">
+            <div id="polaroidDropZone" onclick="document.getElementById('photoInput').click()" class="w-full h-48 bg-slate-100 rounded-xl overflow-hidden relative border-2 border-dashed border-slate-300 flex items-center justify-center cursor-pointer group">
+              <div id="photoPlaceholder" class="text-center p-4">
+                <i class="fa-solid fa-cloud-arrow-up text-3xl text-slate-400 group-hover:text-pink-500 transition mb-2"></i>
+                <div class="text-xs font-bold text-slate-600">Tap to Upload Photo</div>
+                <div class="text-[10px] text-slate-400">JPG, PNG or GIF</div>
+              </div>
+              <img id="polaroidImg" src="" alt="Memory Photo" class="w-full h-full object-cover hidden" />
+              <input type="file" id="photoInput" accept="image/*" class="hidden">
+            </div>
+
+            <div class="w-full mt-3">
+              <input type="text" id="memoryCaption" placeholder="Write a memory note here..." value="Best Sali Sahiba Moments ✨" class="w-full text-center font-cursive text-xs text-slate-800 border-b border-dashed border-slate-300 focus:outline-none focus:border-pink-500 bg-transparent py-1">
+            </div>
+          </div>
+
+          <div class="mt-4 flex items-center justify-center gap-3">
+            <button onclick="saveMemoryCard()" class="px-4 py-2 rounded-xl bg-teal-600/30 border border-teal-500/50 hover:bg-teal-600/50 text-teal-200 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95">
+              <i class="fa-solid fa-floppy-disk"></i> Save Memory
+            </button>
+            <button onclick="resetMemoryCard()" class="px-3 py-2 rounded-xl glass-input text-slate-400 hover:text-white text-xs transition">
+              Reset
+            </button>
+          </div>
+        </div> -->
+      </div>
+
+      <footer class="text-center py-8 border-t border-white/10 text-xs text-slate-400">
+        <p class="text-pink-400 font-semibold mb-1">Designed with love for Sali Sahiba 💖</p>
+        <p>Ek Samosa 2 Chai • 15 October Celebration • Pure Joy</p>
+      </footer>
+    </main>
+  </div>
+
+  <audio id="bgAudio" loop preload="none">
+    <source src="https://mobcup.fm/ringtone/wish-you-happy-happy-birthday-5vWTqhAZ" type="audio/mpeg">
+  </audio>
+
+  <script>
+    /* ====================================================================
+     * AUDIO ENGINE & SOUND EFFECTS (Tone.js + Web Audio API Fallback)
+     * ==================================================================== */
+    let synth = null;
+    let audioCtx = null;
+
+    function initToneAudio() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        if (window.Tone && !synth) {
+          Tone.start();
+          synth = new Tone.PolySynth(Tone.Synth, {
+            oscillator: { type: "triangle" },
+            envelope: { attack: 0.005, decay: 0.15, sustain: 0.2, release: 0.8 }
+          }).toDestination();
+          synth.volume.value = -3;
+        }
+      } catch (e) {
+        console.warn("Audio init warning:", e);
+      }
+    }
+
+    function playNote(note, dur = "8n") {
+      initToneAudio();
+      try {
+        if (synth) {
+          synth.triggerAttackRelease(note, dur);
+        } else if (audioCtx) {
+          // Pure Web Audio oscillator fallback
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          const freqTable = {
+            'C4': 261.63, 'C#4': 277.18, 'D4': 293.66, 'D#4': 311.13,
+            'E4': 329.63, 'F4': 349.23, 'F#4': 369.99, 'G4': 392.00,
+            'G#4': 415.30, 'A4': 440.00, 'A#4': 466.16, 'B4': 493.88, 'C5': 523.25
+          };
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(freqTable[note] || 440, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.36);
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    }
+
+    function playChimeSound() {
+      initToneAudio();
+      try {
+        if (synth) {
+          synth.triggerAttackRelease("C5", "16n");
+          setTimeout(() => synth.triggerAttackRelease("E5", "16n"), 100);
+          setTimeout(() => synth.triggerAttackRelease("G5", "16n"), 200);
+          setTimeout(() => synth.triggerAttackRelease("C6", "8n"), 300);
+        }
+      } catch(e) {}
+    }
+
+    function playBuzzerSound() {
+      initToneAudio();
+      try {
+        if (synth) {
+          synth.triggerAttackRelease("F2", "8n");
+          setTimeout(() => synth.triggerAttackRelease("E2", "8n"), 120);
+        }
+      } catch(e) {}
+    }
+
+    function playPopSound() {
+      initToneAudio();
+      try {
+        if (synth) {
+          synth.triggerAttackRelease("G5", "32n");
+        }
+      } catch(e) {}
+    }
+
+    function triggerGrandConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 75,
+          spread: 80,
+          origin: { y: 0.6 },
+          colors: ['#ec4899', '#8b5cf6', '#f43f5e', '#f59e0b', '#10b981']
+        });
+      }
+    }
+
+    /* ====================================================================
+     * BULLETPROOF PASSCODE LOCK SCREEN LOGIC ('1510')
+     * ==================================================================== */
+    let currentPin = "";
+    const SECRET_PIN = "1510";
+    let isAppUnlocked = false;
+
+    function updatePinDots() {
+      const dots = document.querySelectorAll(".pin-dot");
+      dots.forEach((dot, index) => {
+        if (index < currentPin.length) {
+          dot.classList.add("bg-pink-500", "scale-110", "shadow-lg", "shadow-pink-500/50");
+          dot.classList.remove("bg-slate-900");
+        } else {
+          dot.classList.remove("bg-pink-500", "scale-110", "shadow-lg", "shadow-pink-500/50");
+          dot.classList.add("bg-slate-900");
+        }
+      });
+    }
+
+    function pressPin(digit) {
+      if (isAppUnlocked) return;
+      initToneAudio();
+      if (currentPin.length < 4) {
+        currentPin += digit.toString();
+        updatePinDots();
+        playNote("E4", "16n");
+
+        if (currentPin.length === 4) {
+          setTimeout(validatePin, 150);
+        }
+      }
+    }
+
+    function clearPin() {
+      currentPin = "";
+      updatePinDots();
+      const status = document.getElementById("pinStatus");
+      if (status) status.textContent = "Passcode cleared ✨";
+    }
+
+    function backspacePin() {
+      if (currentPin.length > 0) {
+        currentPin = currentPin.slice(0, -1);
+        updatePinDots();
+      }
+    }
+
+    function validatePin() {
+      if (currentPin === SECRET_PIN) {
+        unlockAppSuccessfully();
+      } else {
+        const card = document.getElementById("passcodeCard");
+        const status = document.getElementById("pinStatus");
+        if (card) {
+          card.classList.add("shake-error");
+          setTimeout(() => card.classList.remove("shake-error"), 500);
+        }
+        if (status) {
+          status.innerHTML = "<span class='text-rose-400 font-bold'>Incorrect! Hint: 1510</span>";
+        }
+        playBuzzerSound();
+        currentPin = "";
+        setTimeout(updatePinDots, 350);
+      }
+    }
+
+    function unlockAppImmediately() {
+      currentPin = SECRET_PIN;
+      updatePinDots();
+      unlockAppSuccessfully();
+    }
+
+    function unlockAppSuccessfully() {
+      if (isAppUnlocked) return;
+      isAppUnlocked = true;
+      initToneAudio();
+      playChimeSound();
+      triggerGrandConfetti();
+
+      const gate = document.getElementById("passcodeGate");
+      const mainApp = document.getElementById("mainAppContent");
+      const status = document.getElementById("pinStatus");
+
+      if (status) {
+        status.innerHTML = "<span class='text-emerald-400 font-bold'>Access Granted! Welcome! 🎉</span>";
+      }
+
+      if (gate) {
+        gate.classList.add("opacity-0", "pointer-events-none");
+        setTimeout(() => {
+          gate.style.display = "none";
+        }, 750);
+      }
+
+      if (mainApp) {
+        mainApp.classList.remove("opacity-0", "pointer-events-none");
+        mainApp.classList.add("opacity-100");
+      }
+
+      // Auto start background music or synth
+      startBackgroundAudioSoftly();
+
+      // Trigger secondary confetti explosion
+      setTimeout(triggerGrandConfetti, 450);
+    }
+
+    // Physical Keyboard Listener for PC / Laptop users
+    window.addEventListener("keydown", (e) => {
+      if (isAppUnlocked) return;
+      if (e.key >= "0" && e.key <= "9") {
+        pressPin(e.key);
+      } else if (e.key === "Backspace") {
+        backspacePin();
+      } else if (e.key === "Enter") {
+        if (currentPin.length === 4) {
+          validatePin();
+        } else {
+          unlockAppImmediately();
+        }
+      } else if (e.key === "Escape") {
+        clearPin();
+      }
+    });
+
+    /* ====================================================================
+     * BACKGROUND AUDIO PLAYER
+     * ==================================================================== */
+    let isMusicPlaying = false;
+    const bgAudio = document.getElementById("bgAudio");
+    const musicIcon = document.getElementById("musicIcon");
+    const musicText = document.getElementById("musicText");
+    const eqBars = document.getElementById("eqBars");
+
+    function startBackgroundAudioSoftly() {
+      if (!bgAudio) return;
+      bgAudio.volume = 0.35;
+      bgAudio.play().then(() => {
+        isMusicPlaying = true;
+        updateMusicUI();
+      }).catch(err => {
+        console.log("Audio autoplay restricted. Click to play:", err);
+      });
+    }
+
+    function toggleAudioTrack() {
+      initToneAudio();
+      if (!isMusicPlaying) {
+        if (bgAudio) {
+          bgAudio.volume = 0.4;
+          bgAudio.play().then(() => {
+            isMusicPlaying = true;
+            updateMusicUI();
+          }).catch(() => {
+            // If external URL is blocked, play melodic synth loop
+            playChimeSound();
+            isMusicPlaying = true;
+            updateMusicUI();
+          });
+        }
+      } else {
+        if (bgAudio) bgAudio.pause();
+        isMusicPlaying = false;
+        updateMusicUI();
+      }
+    }
+
+    function updateMusicUI() {
+      if (isMusicPlaying) {
+        if (musicIcon) musicIcon.className = "fa-solid fa-volume-high text-pink-400";
+        if (musicText) musicText.textContent = "Pause Melody";
+        if (eqBars) eqBars.classList.remove("hidden");
+      } else {
+        if (musicIcon) musicIcon.className = "fa-solid fa-music";
+        if (musicText) musicText.textContent = "Play Melody";
+        if (eqBars) eqBars.classList.add("hidden");
+      }
+    }
+
+    /* ====================================================================
+     * BIRTHDAY CAKE CANDLES & MICROPHONE BREATH DETECTION
+     * ==================================================================== */
+    let candlesExtinguished = [false, false, false, false, false];
+    let isMicListening = false;
+    let micStream = null;
+    let micAudioContext = null;
+    let micAnalyser = null;
+    let micAnimFrame = null;
+
+    function extinguishCandle(index) {
+      if (candlesExtinguished[index]) return;
+      candlesExtinguished[index] = true;
+      initToneAudio();
+      playPopSound();
+
+      const candles = document.querySelectorAll(".candle-wrapper");
+      if (candles[index]) {
+        const flame = candles[index].querySelector(".flame");
+        if (flame) {
+          flame.classList.remove("flame-active");
+          flame.classList.add("flame-extinguished");
+        }
+      }
+
+      checkAllCandlesBlown();
+    }
+
+    function relightCandles() {
+      candlesExtinguished = [false, false, false, false, false];
+      const flames = document.querySelectorAll(".candle-wrapper .flame");
+      flames.forEach(flame => {
+        flame.classList.add("flame-active");
+        flame.classList.remove("flame-extinguished");
+      });
+      const alertBox = document.getElementById("cakeWishAlert");
+      if (alertBox) alertBox.classList.add("hidden");
+      playChimeSound();
+    }
+
+    function checkAllCandlesBlown() {
+      if (candlesExtinguished.every(val => val === true)) {
+        const alertBox = document.getElementById("cakeWishAlert");
+        if (alertBox) alertBox.classList.remove("hidden");
+        triggerGrandConfetti();
+        playChimeSound();
+      }
+    }
+
+    async function toggleMicrophoneBlow() {
+      const micText = document.getElementById("micText");
+      const micIcon = document.getElementById("micIcon");
+      const micMeterWrapper = document.getElementById("micMeterWrapper");
+      const micMeterBar = document.getElementById("micMeterBar");
+      const micValText = document.getElementById("micValText");
+
+      if (isMicListening) {
+        // Stop
+        if (micStream) micStream.getTracks().forEach(t => t.stop());
+        cancelAnimationFrame(micAnimFrame);
+        isMicListening = false;
+        if (micText) micText.textContent = "Enable Mic Blow";
+        if (micIcon) micIcon.className = "fa-solid fa-microphone";
+        if (micMeterWrapper) micMeterWrapper.classList.add("hidden");
+        return;
+      }
+
+      try {
+        micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        micAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const source = micAudioContext.createMediaStreamSource(micStream);
+        micAnalyser = micAudioContext.createAnalyser();
+        micAnalyser.fftSize = 256;
+        source.connect(micAnalyser);
+
+        isMicListening = true;
+        if (micText) micText.textContent = "Listening... Blow Now!";
+        if (micIcon) micIcon.className = "fa-solid fa-wind text-pink-400";
+        if (micMeterWrapper) micMeterWrapper.classList.remove("hidden");
+
+        const dataArray = new Uint8Array(micAnalyser.frequencyBinCount);
+
+        function analyzeBlow() {
+          if (!isMicListening) return;
+          micAnalyser.getByteFrequencyData(dataArray);
+
+          let sum = 0;
+          for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+          const averageVolume = sum / dataArray.length;
+          const percent = Math.min(100, Math.round((averageVolume / 128) * 100));
+
+          if (micMeterBar) micMeterBar.style.width = `${percent}%`;
+          if (micValText) micValText.textContent = `${percent}%`;
+
+          // Threshold for breath / blowing sound
+          if (averageVolume > 40) {
+            const unblownIndices = candlesExtinguished
+              .map((blown, idx) => (!blown ? idx : null))
+              .filter(idx => idx !== null);
+
+            if (unblownIndices.length > 0) {
+              const target = unblownIndices[Math.floor(Math.random() * unblownIndices.length)];
+              extinguishCandle(target);
+            }
+          }
+
+          micAnimFrame = requestAnimationFrame(analyzeBlow);
+        }
+        analyzeBlow();
+      } catch (err) {
+        console.warn("Microphone access denied or error:", err);
+        alert("Please allow microphone permissions to blow candles, or tap flames directly!");
+      }
+    }
+
+    /* ====================================================================
+     * VERTICAL PIANO ENGINE & EXTENDED AUTO-DEMO
+     * ==================================================================== */
+    let isDemoRunning = false;
+    let demoTimeouts = [];
+
+    function handlePianoKeyPress(note, element) {
+      playNote(note);
+      if (element) {
+        element.classList.add("piano-active-highlight");
+        setTimeout(() => element.classList.remove("piano-active-highlight"), 250);
+      }
+    }
+
+    const extendedBdaySong = [
+      { note: "C4", delay: 0, lyric: "Happy..." },
+      { note: "C4", delay: 350, lyric: "Happy Birthday..." },
+      { note: "D4", delay: 700, lyric: "Birthday to..." },
+      { note: "C4", delay: 1200, lyric: "To you..." },
+      { note: "F4", delay: 1700, lyric: "Happy Birthday to you!" },
+      { note: "E4", delay: 2200, lyric: "To you! 🎶" },
+
+      { note: "C4", delay: 3100, lyric: "Happy..." },
+      { note: "C4", delay: 3450, lyric: "Happy Birthday..." },
+      { note: "D4", delay: 3800, lyric: "Birthday to..." },
+      { note: "C4", delay: 4300, lyric: "To you..." },
+      { note: "G4", delay: 4800, lyric: "Happy Birthday to you!" },
+      { note: "F4", delay: 5300, lyric: "To you! ✨" },
+
+      { note: "C4", delay: 6200, lyric: "Happy Birthday..." },
+      { note: "C4", delay: 6550, lyric: "Happy Birthday dear..." },
+      { note: "C5", delay: 6900, lyric: "SALI..." },
+      { note: "A4", delay: 7450, lyric: "SAHIBA! 👑" },
+      { note: "F4", delay: 8000, lyric: "Cutie Pie..." },
+      { note: "E4", delay: 8550, lyric: "Ever Shining..." },
+      { note: "D4", delay: 9100, lyric: "Cutie Pie! 💖" },
+
+      { note: "A#4", delay: 10100, lyric: "May your year..." },
+      { note: "A#4", delay: 10450, lyric: "Be full of sweets..." },
+      { note: "A4", delay: 10800, lyric: "And cutting chai..." },
+      { note: "F4", delay: 11350, lyric: "Happy Birthday..." },
+      { note: "G4", delay: 11900, lyric: "Dear Sali..." },
+      { note: "F4", delay: 12500, lyric: "SALI SAHIBA! 🎂✨🎉" }
+    ];
+
+    function stopAutoDemo() {
+      isDemoRunning = false;
+      demoTimeouts.forEach(clearTimeout);
+      demoTimeouts = [];
+
+      document.querySelectorAll(".piano-key").forEach(k => k.classList.remove("piano-active-highlight"));
+      const demoProgressCard = document.getElementById("demoProgressCard");
+      const stopMelodyAutoBtn = document.getElementById("stopMelodyAutoBtn");
+      const demoPlayIcon = document.getElementById("demoPlayIcon");
+      const demoPlayText = document.getElementById("demoPlayText");
+
+      if (demoProgressCard) demoProgressCard.classList.add("hidden");
+      if (stopMelodyAutoBtn) stopMelodyAutoBtn.classList.add("hidden");
+      if (demoPlayIcon) demoPlayIcon.className = "fa-solid fa-play";
+      if (demoPlayText) demoPlayText.textContent = "Play Full Birthday Demo";
+    }
+
+    function toggleExtendedAutoDemo() {
+      if (isDemoRunning) {
+        stopAutoDemo();
+        return;
+      }
+
+      initToneAudio();
+      isDemoRunning = true;
+      demoTimeouts = [];
+
+      const demoProgressCard = document.getElementById("demoProgressCard");
+      const stopMelodyAutoBtn = document.getElementById("stopMelodyAutoBtn");
+      const demoPlayIcon = document.getElementById("demoPlayIcon");
+      const demoPlayText = document.getElementById("demoPlayText");
+      const demoProgressBar = document.getElementById("demoProgressBar");
+      const demoLyricText = document.getElementById("demoLyricText");
+
+      if (demoProgressCard) demoProgressCard.classList.remove("hidden");
+      if (stopMelodyAutoBtn) stopMelodyAutoBtn.classList.remove("hidden");
+      if (demoPlayIcon) demoPlayIcon.className = "fa-solid fa-pause";
+      if (demoPlayText) demoPlayText.textContent = "Playing Extended Demo...";
+
+      const totalDuration = 13500;
+
+      extendedBdaySong.forEach((item, index) => {
+        const tid = setTimeout(() => {
+          if (!isDemoRunning) return;
+
+          playNote(item.note);
+          if (demoLyricText) demoLyricText.textContent = `🎵 ${item.lyric}`;
+
+          const progress = Math.round(((index + 1) / extendedBdaySong.length) * 100);
+          if (demoProgressBar) demoProgressBar.style.width = `${progress}%`;
+
+          const keyEl = document.querySelector(`.piano-key[data-note="${item.note}"]`);
+          if (keyEl) {
+            keyEl.classList.add("piano-active-highlight");
+            setTimeout(() => keyEl.classList.remove("piano-active-highlight"), 320);
+          }
+        }, item.delay);
+
+        demoTimeouts.push(tid);
+      });
+
+      const endTid = setTimeout(() => {
+        triggerGrandConfetti();
+        playChimeSound();
+        stopAutoDemo();
+      }, totalDuration);
+
+      demoTimeouts.push(endTid);
+    }
+
+    /* ====================================================================
+     * PRE-POPULATED BALLOON ARENA WITH ZOOM BURST
+     * ==================================================================== */
+    let balloonScore = 0;
+    const balloonColors = ["#ec4899", "#8b5cf6", "#f43f5e", "#06b6d4", "#f59e0b", "#10b981", "#a855f7"];
+
+    function createBalloonElement(isStationary, posX, posY) {
+      const arena = document.getElementById("balloonArena");
+      if (!arena) return;
+
+      const balloon = document.createElement("div");
+      const color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+      const size = Math.floor(Math.random() * 18) + 54;
+      const left = posX !== null ? posX : Math.floor(Math.random() * 80) + 10;
+      const top = posY !== null ? posY : Math.floor(Math.random() * 55) + 15;
+
+      balloon.className = "absolute cursor-pointer flex flex-col items-center select-none transition-transform duration-200 hover:scale-125 z-10";
+      balloon.style.left = `${left}%`;
+
+      if (isStationary) {
+        balloon.style.top = `${top}%`;
+        balloon.classList.add("balloon-bob");
+        balloon.style.animationDelay = `${(Math.random() * 2).toFixed(2)}s`;
+      } else {
+        const duration = (Math.random() * 2.5 + 4).toFixed(1);
+        balloon.style.bottom = "-80px";
+        balloon.style.transition = `bottom ${duration}s linear, transform 0.2s ease`;
+        setTimeout(() => { balloon.style.bottom = "115%"; }, 40);
+        setTimeout(() => { if (balloon.parentNode) balloon.remove(); }, duration * 1000 + 200);
+      }
+
+      balloon.innerHTML = `
+        <div style="width:${size}px; height:${size * 1.25}px; background: radial-gradient(circle at 35% 30%, #ffffff 5%, ${color} 50%, #000 135%); border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; box-shadow: inset -4px -4px 10px rgba(0,0,0,0.35), 0 10px 20px -3px rgba(0,0,0,0.4);" class="relative">
+          <div class="absolute top-2 left-3 w-3 h-4 bg-white/40 rounded-full blur-[1px] -rotate-12"></div>
+        </div>
+        <div style="width: 2px; height: 38px; background: rgba(255,255,255,0.45); margin-top: -2px;"></div>
+      `;
+
+      balloon.addEventListener("pointerdown", () => {
+        if (balloon.classList.contains("balloon-bursting")) return;
+        
+        const hint = document.getElementById("arenaHint");
+        if (hint) hint.classList.add("hidden");
+
+        balloonScore++;
+        const scoreEl = document.getElementById("balloonScore");
+        if (scoreEl) scoreEl.textContent = balloonScore;
+
+        playPopSound();
+        balloon.classList.remove("balloon-bob");
+        balloon.classList.add("balloon-bursting");
+
+        setTimeout(() => {
+          if (balloon.parentNode) balloon.remove();
+        }, 280);
+
+        if (balloonScore % 8 === 0) triggerGrandConfetti();
+      });
+
+      arena.appendChild(balloon);
+    }
+
+    function initPrePopulatedBalloons() {
+      const arena = document.getElementById("balloonArena");
+      if (!arena) return;
+      arena.querySelectorAll(".balloon-bob").forEach(b => b.remove());
+
+      const positions = [
+        { x: 10, y: 35 }, { x: 22, y: 15 }, { x: 36, y: 42 },
+        { x: 50, y: 18 }, { x: 64, y: 38 }, { x: 76, y: 20 },
+        { x: 86, y: 45 }, { x: 45, y: 55 }
+      ];
+
+      positions.forEach(pos => createBalloonElement(true, pos.x, pos.y));
+    }
+
+    function addMoreBalloons() {
+      initToneAudio();
+      for (let i = 0; i < 4; i++) {
+        setTimeout(() => createBalloonElement(false, null, null), i * 180);
+      }
+    }
+
+    function blastAllBalloons() {
+      initToneAudio();
+      const balloons = document.querySelectorAll("#balloonArena .cursor-pointer");
+      if (balloons.length === 0) {
+        initPrePopulatedBalloons();
+        return;
+      }
+      balloons.forEach((b, idx) => {
+        setTimeout(() => {
+          const evt = new Event("pointerdown");
+          b.dispatchEvent(evt);
+        }, idx * 70);
+      });
+      triggerGrandConfetti();
+    }
+
+    /* ====================================================================
+     * CANVAS SCRATCH CARD VOUCHER
+     * ==================================================================== */
+    let scratchCanvas = null;
+    let scratchCtx = null;
+    let isScratching = false;
+
+    function initScratchCard() {
+      scratchCanvas = document.getElementById("scratchCanvas");
+      if (!scratchCanvas) return;
+      scratchCtx = scratchCanvas.getContext("2d");
+
+      const rect = scratchCanvas.getBoundingClientRect();
+      scratchCanvas.width = rect.width || 380;
+      scratchCanvas.height = rect.height || 256;
+
+      const grad = scratchCtx.createLinearGradient(0, 0, scratchCanvas.width, scratchCanvas.height);
+      grad.addColorStop(0, "#94a3b8");
+      grad.addColorStop(0.3, "#cbd5e1");
+      grad.addColorStop(0.5, "#f1f5f9");
+      grad.addColorStop(0.7, "#cbd5e1");
+      grad.addColorStop(1, "#64748b");
+
+      scratchCtx.fillStyle = grad;
+      scratchCtx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+
+      scratchCtx.font = "bold 15px Outfit, sans-serif";
+      scratchCtx.fillStyle = "#334155";
+      scratchCtx.textAlign = "center";
+      scratchCtx.fillText("✨ SCRATCH WITH FINGER OR MOUSE ✨", scratchCanvas.width / 2, scratchCanvas.height / 2 - 10);
+      scratchCtx.font = "12px Outfit, sans-serif";
+      scratchCtx.fillText("Reveal Sali Sahiba's Treat Pass", scratchCanvas.width / 2, scratchCanvas.height / 2 + 15);
+
+      const progressEl = document.getElementById("scratchProgress");
+      if (progressEl) progressEl.textContent = "Scratched: 0%";
+    }
+
+    function scratchCardPoint(x, y) {
+      if (!scratchCtx) return;
+      scratchCtx.globalCompositeOperation = "destination-out";
+      scratchCtx.beginPath();
+      scratchCtx.arc(x, y, 22, 0, Math.PI * 2);
+      scratchCtx.fill();
+
+      // Coverage check
+      const imgData = scratchCtx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
+      let clear = 0;
+      const sampled = imgData.data.length / 16;
+      for (let i = 3; i < imgData.data.length; i += 16) {
+        if (imgData.data[i] === 0) clear++;
+      }
+      const pct = Math.round((clear / sampled) * 100);
+      const progressEl = document.getElementById("scratchProgress");
+      if (progressEl) progressEl.textContent = `Scratched: ${pct}%`;
+
+      if (pct > 55) {
+        scratchCanvas.style.transition = "opacity 0.5s ease-out";
+        scratchCanvas.style.opacity = "0";
+        setTimeout(() => { scratchCanvas.style.pointerEvents = "none"; }, 500);
+        triggerGrandConfetti();
+        playChimeSound();
+      }
+    }
+
+    function resetScratchCard() {
+      if (scratchCanvas) {
+        scratchCanvas.style.opacity = "1";
+        scratchCanvas.style.pointerEvents = "auto";
+        initScratchCard();
+      }
+    }
+
+    /* ====================================================================
+     * SALI QUIZ ENGINE
+     * ==================================================================== */
+    let quizStep = 1;
+    let quizScore = 0;
+
+    function answerQuiz(isCorrect, btn) {
+      if (isCorrect) {
+        btn.classList.add("bg-emerald-600/40", "border-emerald-400", "text-emerald-200");
+        quizScore++;
+        playChimeSound();
+      } else {
+        btn.classList.add("bg-rose-600/40", "border-rose-400", "text-rose-200");
+        playBuzzerSound();
+      }
+
+      const parentStep = btn.closest(".quiz-step");
+      if (parentStep) {
+        parentStep.querySelectorAll(".quiz-opt").forEach(b => b.style.pointerEvents = "none");
+        setTimeout(() => {
+          parentStep.classList.add("hidden");
+          quizStep++;
+          const nextStep = document.querySelector(`.quiz-step[data-step="${quizStep}"]`);
+          if (nextStep) {
+            nextStep.classList.remove("hidden");
+          } else {
+            const res = document.getElementById("quizResult");
+            const scoreText = document.getElementById("quizScoreText");
+            if (res) res.classList.remove("hidden");
+            if (scoreText) scoreText.textContent = `You scored ${quizScore} / 3! 🌟`;
+            if (quizScore === 3) triggerGrandConfetti();
+          }
+        }, 800);
+      }
+    }
+
+    function resetQuizGame() {
+      quizStep = 1;
+      quizScore = 0;
+      const res = document.getElementById("quizResult");
+      if (res) res.classList.add("hidden");
+      document.querySelectorAll(".quiz-step").forEach((step, idx) => {
+        if (idx === 0) step.classList.remove("hidden");
+        else step.classList.add("hidden");
+        step.querySelectorAll(".quiz-opt").forEach(b => {
+          b.className = "quiz-opt w-full p-3 rounded-xl glass-input text-left text-sm hover:border-pink-500 transition";
+          b.style.pointerEvents = "auto";
+        });
+      });
+    }
+
+    /* ====================================================================
+     * FORTUNE WHEEL ENGINE
+     * ==================================================================== */
+    const wheelPrizes = [
+      { text: "Free Samosa", color: "#ec4899" },
+      { text: "Unlimited Hugs", color: "#8b5cf6" },
+      { text: "Cutting Chai", color: "#f59e0b" },
+      { text: "No Teasing Day", color: "#10b981" },
+      { text: "Movie Treat", color: "#06b6d4" },
+      { text: "Royal Crown", color: "#f43f5e" }
+    ];
+    let currentWheelRotation = 0;
+    let isWheelSpinning = false;
+
+    function drawWheel() {
+      const canvas = document.getElementById("wheelCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const slices = wheelPrizes.length;
+      const angle = (2 * Math.PI) / slices;
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      const r = cx - 6;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      wheelPrizes.forEach((p, i) => {
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, r, i * angle, (i + 1) * angle);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "rgba(255,255,255,0.4)";
+        ctx.stroke();
+
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(i * angle + angle / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 11px Outfit, sans-serif";
+        ctx.fillText(p.text, r - 15, 4);
+        ctx.restore();
+      });
+
+      // Pin
+      ctx.beginPath();
+      ctx.arc(cx, cy, 18, 0, Math.PI * 2);
+      ctx.fillStyle = "#0f172a";
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "#fbbf24";
+      ctx.stroke();
+    }
+
+    function spinFortuneWheel() {
+      if (isWheelSpinning) return;
+      isWheelSpinning = true;
+      initToneAudio();
+
+      const canvas = document.getElementById("wheelCanvas");
+      const resultText = document.getElementById("wheelResultText");
+      const spin = Math.floor(Math.random() * 360) + 1440;
+      currentWheelRotation += spin;
+
+      if (canvas) canvas.style.transform = `rotate(${currentWheelRotation}deg)`;
+      if (resultText) resultText.textContent = "Spinning for your fortune...";
+
+      setTimeout(() => {
+        isWheelSpinning = false;
+        const actualDeg = (currentWheelRotation % 360);
+        const sliceDeg = 360 / wheelPrizes.length;
+        const idx = Math.floor(((360 - actualDeg + 270) % 360) / sliceDeg);
+        const won = wheelPrizes[idx];
+
+        if (resultText) resultText.textContent = `🎉 You won: ${won.text}! ✨`;
+        triggerGrandConfetti();
+        playChimeSound();
+      }, 4000);
+    }
+/* ====================================================================
+     * CUTIE PIE POLAROID REVEAL
+     * ==================================================================== */
+    let isPhotoRevealed = false;
+
+    function revealCutiePiePhoto() {
+      const img = document.getElementById("polaroidImg");
+      const cover = document.getElementById("photoPlaceholder");
+
+      if (img && cover) {
+        cover.classList.add("hidden");
+        img.classList.remove("hidden");
+        isPhotoRevealed = true;
+        initToneAudio();
+        playChimeSound();
+        triggerGrandConfetti();
+      }
+    }
+
+    function hideCutiePiePhoto() {
+      const img = document.getElementById("polaroidImg");
+      const cover = document.getElementById("photoPlaceholder");
+
+      if (img && cover) {
+        img.classList.add("hidden");
+        cover.classList.remove("hidden");
+        isPhotoRevealed = false;
+      }
+    }
+    /* ====================================================================
+     * MYSTERY GIFT & POLAROID MEMORY
+     * ==================================================================== */
+    let isGiftOpen = false;
+    function toggleGiftBox() {
+      isGiftOpen = !isGiftOpen;
+      const lid = document.getElementById("giftLid");
+      const letter = document.getElementById("giftLetter");
+      if (isGiftOpen) {
+        if (lid) lid.style.transform = "translateY(-40px) rotate(-14deg)";
+        if (letter) {
+          letter.classList.remove("hidden");
+          setTimeout(() => letter.classList.remove("scale-90"), 50);
+        }
+        triggerGrandConfetti();
+        playChimeSound();
+      } else {
+        if (lid) lid.style.transform = "translateY(0) rotate(0)";
+        if (letter) letter.classList.add("hidden");
+      }
+    }
+
+    function saveMemoryCard() {
+      const img = document.getElementById("polaroidImg");
+      const caption = document.getElementById("memoryCaption");
+      try {
+        if (img && img.src && !img.classList.contains("hidden")) {
+          localStorage.setItem("sali_bday_photo", img.src);
+        }
+        if (caption) {
+          localStorage.setItem("sali_bday_caption", caption.value);
+        }
+        playChimeSound();
+        alert("Memory card saved successfully! 💖");
+      } catch (err) {
+        alert("Memory note saved! (Storage quota reached for heavy photo).");
+      }
+    }
+
+    function resetMemoryCard() {
+      localStorage.removeItem("sali_bday_photo");
+      localStorage.removeItem("sali_bday_caption");
+      const img = document.getElementById("polaroidImg");
+      const holder = document.getElementById("photoPlaceholder");
+      const caption = document.getElementById("memoryCaption");
+      if (img) { img.src = ""; img.classList.add("hidden"); }
+      if (holder) holder.classList.remove("hidden");
+      if (caption) caption.value = "Best Sali Sahiba Moments ✨";
+    }
+
+    /* ====================================================================
+     * INITIALIZATION & EVENT BINDINGS
+     * ==================================================================== */
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Populate scratch canvas
+      setTimeout(initScratchCard, 200);
+
+      // Scratch canvas pointer events
+      const sc = document.getElementById("scratchCanvas");
+      if (sc) {
+        sc.addEventListener("pointerdown", (e) => {
+          isScratching = true;
+          const r = sc.getBoundingClientRect();
+          scratchCardPoint(e.clientX - r.left, e.clientY - r.top);
+        });
+        window.addEventListener("pointerup", () => { isScratching = false; });
+        sc.addEventListener("pointermove", (e) => {
+          if (!isScratching) return;
+          const r = sc.getBoundingClientRect();
+          scratchCardPoint(e.clientX - r.left, e.clientY - r.top);
+        });
+      }
+
+      // 2. Initialize Balloons
+      initPrePopulatedBalloons();
+
+      // 3. Draw Wheel
+      drawWheel();
+
+      // 4. Polaroid photo change listener
+      const photoInput = document.getElementById("photoInput");
+      if (photoInput) {
+        photoInput.addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+              const img = document.getElementById("polaroidImg");
+              const placeholder = document.getElementById("photoPlaceholder");
+              if (img) {
+                img.src = ev.target.result;
+                img.classList.remove("hidden");
+              }
+              if (placeholder) placeholder.classList.add("hidden");
+              playChimeSound();
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      }
+
+      // 5. Restore saved memory
+      const savedPhoto = localStorage.getItem("sali_bday_photo");
+      const savedCaption = localStorage.getItem("sali_bday_caption");
+      if (savedPhoto) {
+        const img = document.getElementById("polaroidImg");
+        const placeholder = document.getElementById("photoPlaceholder");
+        if (img) { img.src = savedPhoto; img.classList.remove("hidden"); }
+        if (placeholder) placeholder.classList.add("hidden");
+      }
+      if (savedCaption) {
+        const cap = document.getElementById("memoryCaption");
+        if (cap) cap.value = savedCaption;
+      }
+    
+      // 6. Twinkling background particles
+      const stars = document.getElementById("starsContainer");
+      if (stars) {
+        for (let i = 0; i < 35; i++) {
+          const star = document.createElement("div");
+          star.className = "star-twinkle";
+          star.style.width = Math.random() * 3 + 1 + "px";
+          star.style.height = star.style.width;
+          star.style.left = Math.random() * 100 + "%";
+          star.style.top = Math.random() * 100 + "%";
+          star.style.animation = `pulseGlow ${Math.random() * 3 + 2}s infinite alternate`;
+          star.style.animationDelay = `${Math.random() * 2}s`;
+          stars.appendChild(star);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
